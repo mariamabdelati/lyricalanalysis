@@ -20,7 +20,7 @@ logger = logging.getLogger('scaper')
 logging.basicConfig(level='INFO')
 
 client_id = "48c55dd9e076465db2cb6a0e8b18c9e3"
-client_secret = "c98a0b748635446783884c2d27b7b17e"
+client_secret = "3707f6ad41a74a6dbfff992baf8b6614"
 
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
@@ -30,6 +30,7 @@ def get_artist_uri(name):
     items = results['artists']['items']
     if len(items) > 0:
         #pprint(items[0]['uri'])
+        print(items[0]['uri'])
         return items[0]['uri']
     else:
         return None
@@ -91,8 +92,7 @@ def show_album_tracks(album):
         track_popularity.append(pop)
         duration.append(x['duration_ms'])
         explicit.append(x['explicit'])
-        track_number.append(x['track_number'])
-        
+        track_number.append(x['track_number'])  
     
     df2 = pd.DataFrame({
     'song_artists':artist,
@@ -129,7 +129,7 @@ def get_artist_albums(artist):
             track_df['genres'] = album_data['genres'] if len(album_data['genres']) != 0 else None
             track_df['label'] = album_data['label']
             track_df['album_popularity'] = album_data['popularity']
-            track_df['album_cover'] = album_data['images'][1]['url']
+            track_df['album_cover'] = album_data['images'][1]['url'] if len(album_data['images']) != 0 else None
             all_data = all_data.append(track_df, ignore_index=True)
     return all_data
     
@@ -199,6 +199,7 @@ def get_track_info(df):
     'tempo':tempo,
     'time_signature':time_signature,
     'valence':valence})
+
     return df2
 
 def merge_frames(df1, df2):
@@ -241,7 +242,7 @@ def get_song_lyrics(df):
     lyrics_page_views = []
     featured_artists = []
     cleaned_title = []
-    genius = lyricsgenius.Genius(CLIENT_ACCESS_TOKEN)
+    genius = lyricsgenius.Genius(CLIENT_ACCESS_TOKEN, skip_non_songs=True, verbose=True)
     genius.timeout = 15
     genius.sleep_time = 5  # 2
     # or: Genius(token, timeout=15, sleep_time=40)
@@ -250,7 +251,7 @@ def get_song_lyrics(df):
         song_id = genius_get_song_id(song=x['track_name'], artist=x['album_artist'])
         if song_id != None:
             retries = 0
-            while retries < 3:
+            while retries < 5:
                 try:
                     song = genius.lyrics(song_id=song_id, remove_section_headers=True)
                     #song_lyrics.append(song)
@@ -280,6 +281,12 @@ def get_song_lyrics(df):
                 except Timeout as e:
                     retries += 1
                     continue
+                except requests.HTTPError as h:
+                    retries += 1
+                    continue
+                except ConnectionError as c:
+                    retries += 1
+                    continue
                 if song is not None:
                     song_lyrics.append(song)
                 else:
@@ -299,16 +306,16 @@ def get_song_lyrics(df):
 
 artist_names = open("/Users/mariamtamer/VSCodeProjects/lyricalanalysis/artists.txt").read().splitlines()
 #artis_names = artist_names[0:2] #testing case
-for name in artist_names:
+for name in artist_names[21:]:
     artist_uri = get_artist_uri(name)
     #artist = get_artist_info(artist_uri)
     #print(get_artist_albums(artist_uri))
     #get_artist_albums(artist_uri).to_csv("Songs.csv", index=False)
 
     tracks_df = get_artist_albums(artist=artist_uri)
-    track_audio_features =  get_track_info(tracks_df)
+    track_audio_features = get_track_info(tracks_df)
     completed_df = merge_frames(tracks_df, track_audio_features)
-    completed_df = completed_df.drop_duplicates(subset=['track_name'])
+    #completed_df = completed_df.drop_duplicates(subset=['track_name'])
     df_lyrics = get_song_lyrics(completed_df)
     output_path="Songs.csv"
     df_lyrics.to_csv(output_path, mode='a', header=not os.path.exists(output_path), index=False)
