@@ -1388,3 +1388,13 @@ tempCodeRunnerFile.py
 3_Hadoop/hdfs/datanode/current/BP-26602460-172.21.0.2-1650149934871/current/finalized/subdir0/subdir0/blk_1073741825_1001.meta
 3_Hadoop/hdfs/datanode/current/BP-26602460-172.21.0.2-1650149934871/current/finalized/subdir0/subdir0/blk_1073741826
 3_Hadoop/hdfs/datanode/current/BP-26602460-172.21.0.2-1650149934871/current/finalized/subdir0/subdir0/blk_1073741826_1002.meta
+3_Hadoop/hdfs/datanode/current/BP-1063424967-172.18.0.2-1650195219729/scanner.cursor
+3_Hadoop/hdfs/datanode/current/BP-1063424967-172.18.0.2-1650195219729/current/VERSION
+3_Hadoop/hdfs/datanode/current/BP-1063424967-172.18.0.2-1650195219729/current/finalized/subdir0/subdir0/blk_1073741825
+3_Hadoop/hdfs/datanode/current/BP-1063424967-172.18.0.2-1650195219729/current/finalized/subdir0/subdir0/blk_1073741825_1001.meta
+3_Hadoop/hdfs/datanode/current/BP-1063424967-172.18.0.2-1650195219729/current/finalized/subdir0/subdir0/blk_1073741826
+3_Hadoop/hdfs/datanode/current/BP-1063424967-172.18.0.2-1650195219729/current/finalized/subdir0/subdir0/blk_1073741826_1002.meta
+3_Hadoop/metastore-postgresql/postgresql/data/pg_stat/db_0.stat
+3_Hadoop/metastore-postgresql/postgresql/data/pg_stat/db_12379.stat
+3_Hadoop/metastore-postgresql/postgresql/data/pg_stat/db_16385.stat
+3_Hadoop/metastore-postgresql/postgresql/data/pg_stat/global.stat

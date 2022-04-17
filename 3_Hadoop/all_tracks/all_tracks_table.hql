@@ -35,7 +35,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS all_tracks (
   album_cover STRING
 )
 
-ROW FORMAT DELIMITED
+ROW FORMAT DELIMITED 
   FIELDS TERMINATED BY ','
+  LINES TERMINATED BY '\n'
 STORED AS TEXTFILE 
 LOCATION 'hdfs://namenode:8020/user/hive/warehouse/testdb.db/all_tracks';
