@@ -40,6 +40,7 @@ Track Data and Lyrics was gathered with the help of Spotipy and lyricsgenius lib
 
 
 <h3>Final Data Columns Dictionary</h3><a id='data-dictionary'></a>
+
 ##### Track Table
 |Column Name|Description|
 |---|---|
