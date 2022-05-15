@@ -1398,3 +1398,7 @@ tempCodeRunnerFile.py
 3_Hadoop/metastore-postgresql/postgresql/data/pg_stat/db_12379.stat
 3_Hadoop/metastore-postgresql/postgresql/data/pg_stat/db_16385.stat
 3_Hadoop/metastore-postgresql/postgresql/data/pg_stat/global.stat
+3_Hadoop/hdfs/namenode/current/edits_0000000000000000001-0000000000000000029
+3_Hadoop/hdfs/namenode/current/edits_inprogress_0000000000000000030
+3_Hadoop/hdfs/namenode/current/fsimage_0000000000000000029
+3_Hadoop/hdfs/namenode/current/fsimage_0000000000000000029.md5
